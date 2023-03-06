@@ -1,4 +1,7 @@
 import { MongoClient } from "mongodb";
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function handler(req, res) {
   if (req.method === "POST") {
@@ -25,9 +28,7 @@ async function handler(req, res) {
     let client;
 
     try {
-      client = await MongoClient.connect(
-        "mongodb+srv://Douglas:Christ137@cluster0.pwd0s.mongodb.net/my-site?retryWrites=true&w=majority"
-      );
+      client = await MongoClient.connect(process.env.MONGO_DB);
     } catch (error) {
       res.status(500).json({ message: error.message || "Connection failed." });
       return;
